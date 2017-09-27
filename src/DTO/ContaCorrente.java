@@ -3,23 +3,21 @@ package DTO;
 public class ContaCorrente extends Conta {
     
     private Boolean chequeEspecialAtivo;
-    private double limiteChequeEspecial;
-    public static double LIMITE_CHEQUE_ESPECIAL_MAXIMO;
+    private double chequeEspecial;
        
-    public double getLimiteChequeEspecial() {
-        return limiteChequeEspecial;
+    public double getChequeEspecial() {
+        return chequeEspecial;
     }
 
-    public void setLimiteChequeEspecial(double limiteChequeEspecial) {
-        this.limiteChequeEspecial = limiteChequeEspecial;
+    public void setChequeEspecial(double limiteChequeEspecial) {
+        this.chequeEspecial = limiteChequeEspecial;
     }
 
     public ContaCorrente(Pessoa p, double saldo, Boolean chequeEspecialAtivo){
         this.correntista = p;
         this.saldo = saldo;
         this.chequeEspecialAtivo = chequeEspecialAtivo;
-        this.limiteChequeEspecial = saldo * 2;
-        this.LIMITE_CHEQUE_ESPECIAL_MAXIMO = this.limiteChequeEspecial;
+        this.chequeEspecial = saldo * 2;
     }
     
     public Boolean getChequeEspecialAtivado() {

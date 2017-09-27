@@ -8,8 +8,20 @@ public class ContaCorrenteBLL implements ContaBLL {
     
     @Override
     public void sacarDinheiro(double valor) {
+        
         if(conta.getSaldo() < valor){
-            System.out.println("Não é possivel sacar este valor! Saldo insuficiente:" + conta.getSaldo());
+            if(conta.getChequeEspecialAtivado()){
+                if(conta.getSaldo() + conta.getLimiteChequeEspecial() < valor){
+                    double aux = conta.getSaldo();
+                    conta.setSaldo(conta.getSaldo() - aux); // saldo zerado
+                    conta.setLimiteChequeEspecial(valor - aux);
+                    System.out.println("Saque realizado com sucesso em cheque especial, saldo disponivel:" + conta.getSaldo() + conta.getLimiteChequeEspecial());                    
+                } else{
+                    System.out.println("Não é possivel sacar este valor, limite de cheque especial insuficiente:" + (conta.getSaldo() + conta.getLimiteChequeEspecial()));
+                }
+            } else{
+                System.out.println("Não é possivel sacar este valor! Saldo insuficiente:" + conta.getSaldo());    
+            }
         } else{
             conta.setSaldo(conta.getSaldo() - valor);
             System.out.println("Saque realizado com sucesso, saldo disponivel:" + conta.getSaldo());
@@ -18,8 +30,18 @@ public class ContaCorrenteBLL implements ContaBLL {
 
     @Override
     public void depositarDinheiro(double valor) {
-        conta.setSaldo(conta.getSaldo() + valor);
-        System.out.println("Deposito realizado com sucesso, saldo disponivel: " +conta.getSaldo());
+        if(conta.getChequeEspecialAtivado()){
+            if(conta.getSaldo() == 0){
+                double aux = conta.getLimiteChequeEspecial();
+            } else{
+                conta.setSaldo(conta.getSaldo() + valor);
+                System.out.println("Deposito realizado com sucesso, saldo disponivel: " + conta.getSaldo());            
+            }
+        } else{
+            conta.setSaldo(conta.getSaldo() + valor);
+            System.out.println("Deposito realizado com sucesso, saldo disponivel: " + conta.getSaldo());            
+        }
+
     }
     
 }

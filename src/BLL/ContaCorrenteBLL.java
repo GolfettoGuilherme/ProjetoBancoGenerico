@@ -1,13 +1,18 @@
 package BLL;
 
+import DTO.Conta;
 import DTO.ContaCorrente;
+import DTO.Pessoa;
 
 public class ContaCorrenteBLL implements ContaBLL {
 
-    private ContaCorrente conta;
+    public ContaCorrente criarConta(String nome, int idade, String cpf,double saldoInicial, Boolean chequeEspecialAtivado){
+        return new ContaCorrente(new Pessoa(nome, idade, cpf), saldoInicial,chequeEspecialAtivado);
+    }
     
     @Override
-    public void sacarDinheiro(double valor) {
+    public void sacarDinheiro(Conta contaGen, double valor) {
+        ContaCorrente conta = (ContaCorrente) contaGen;
         if(conta.getSaldo() < valor){
             if(conta.getChequeEspecialAtivado()){
                 if(conta.getChequeEspecial() < valor){
@@ -26,7 +31,8 @@ public class ContaCorrenteBLL implements ContaBLL {
     }
 
     @Override
-    public void depositarDinheiro(double valor) {
+    public void depositarDinheiro(Conta contaGen, double valor) {
+        ContaCorrente conta = (ContaCorrente) contaGen; //gambiarra
         if(conta.getChequeEspecialAtivado()){
             conta.setChequeEspecial(conta.getChequeEspecial() + valor);
             System.out.println("Deposito realizado com sucesso, saldo disponivel: " + conta.getChequeEspecial());            

@@ -12,35 +12,42 @@ public class Program {
         int valorEscolhido;
         leitor = new Scanner(System.in);
         //criar conta corrent
-        System.out.println("Bem vindo ao Banco Genérico");
-        System.out.println("Aqui você pode criar sua conta");
-        System.out.println("Depositar dinheiro");
-        System.out.println("Sacar dinheiro");
-        System.out.println("Obter lucro com rendimentos");
-        System.out.println("Usar e abusar do Cheque Especial duplo");
-        System.out.println("Digite o que deseja fazer:");
-        System.out.println("* 1 - Abertura de Conta Corrente");
-        System.out.println("* 2 - Abertura do Conta Poupança");
-        System.out.println("* 0 - Encerrar Programa");
-        valorEscolhido = leitor.nextInt();
-        switch(valorEscolhido){
-            case 1:
-                try{
-                    criarContaCorrente();
-                } catch(Exception ex){
-                    System.out.println("Erro: " + ex.getMessage());
-                }
-                break;
-            case 2:
-                try{
-                    criarContaPoupanca();    
-                } catch(Exception ex){
-                    System.out.println("Erro: " + ex.getMessage());
-                }
-                
-                break;
-            case 0:
+        for(;;){
+            System.out.println("Bem vindo ao Banco Genérico");
+            System.out.println("Aqui você pode criar sua conta");
+            System.out.println("Depositar dinheiro");
+            System.out.println("Sacar dinheiro");
+            System.out.println("Obter lucro com rendimentos");
+            System.out.println("Usar e abusar do Cheque Especial duplo");
+            System.out.println("Digite o que deseja fazer:");
+            System.out.println("* 1 - Abertura de Conta Corrente");
+            System.out.println("* 2 - Abertura do Conta Poupança");
+            System.out.println("* 0 - Encerrar Programa");
+            valorEscolhido = leitor.nextInt();
+        
+            if(valorEscolhido == 0){
                 System.exit(0);
+            }
+            switch(valorEscolhido){
+                case 1:
+                    try{
+                        criarContaCorrente();
+                    } catch(Exception ex){
+                        System.out.println("Erro: " + ex.getMessage());
+                    }
+                    break;
+                case 2:
+                    try{
+                        criarContaPoupanca();    
+                    } catch(Exception ex){
+                        System.out.println("Erro: " + ex.getMessage());
+                    }
+                    break;
+                default:
+                    clearConsole();
+                    System.out.println("Entrada invalida.");
+                    break;
+            }
         }
     }
     
@@ -173,19 +180,10 @@ public class Program {
     }
 
     public final static void clearConsole(){
-
         try{
-            final String os = System.getProperty("os.name");
-
-            if (os.contains("Windows")){
-                Runtime.getRuntime().exec("cls");
-
-            }else{
-                Runtime.getRuntime().exec("clear");
-            }
-        }
-        catch (final Exception e){
-        //  Tratar Exceptions
+            Runtime.getRuntime().exec("cls");    
+        } catch(Exception ex) {
+            System.out.println("");
         }
     }
 }
